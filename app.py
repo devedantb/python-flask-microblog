@@ -64,7 +64,7 @@ def create_app():
             ]
             print(user_check)
             if username==user_check[0] and password==user_check[1]:
-                return redirect('/')
+                return home()
         return render_template('login.html')
 
     return app
