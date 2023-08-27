@@ -1,0 +1,48 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>These all entries we have recived till now</h1>
+    <ul>
+        {%for entry in entries:%}
+            <li>{{ entry }}</li>
+        {%endfor%}
+    </ul>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+<h2>These are all entries</h2>
+
+<table style="width:100%">
+  <tr>
+    
+  	<th>Id</th>
+    <th>Date</th>
+    <th>Content</th>
+    
+  </tr>
+  <br>
+  <tr>
+    {%for entry in (entries):%}
+        <td>Id</td>
+        <td>{{entry[1]}}</td>
+        <td>{{entry[0]}}</td>
+    {%endfor%}
+  </tr>
+</table>
+</body>
+</html>
+
