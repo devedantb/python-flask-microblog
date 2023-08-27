@@ -57,8 +57,8 @@ def create_app():
             # app.db.users.insert_one({'user':[{'username':username,'password':password}]})
             user_check=[
                 (
-                    user['user']['username'],
-                    user['user']['password']
+                    user['user'][0]['username'],
+                    user['user'][0]['password']
                 )
                 for user in app.db.user.find({})
             ]
