@@ -63,7 +63,7 @@ def create_app():
                 for user in app.db.user.find({})
             ]
             print(user_check)
-            if username==user_check[0] and password==user_check[1]:
+            if username==user_check[0][0] and password==user_check[0][1]:
                 return home()
         return render_template('login.html')
 
