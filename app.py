@@ -52,7 +52,7 @@ def create_app():
                     user['username'],
                     user['password']
                 )
-                for user in app.db.user.find({})
+                for user in app.db.users.find({})
             ]
             print(f'user_check >> {user_check}')
             try:
