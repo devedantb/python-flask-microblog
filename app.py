@@ -11,7 +11,7 @@ def create_app():
     
     client = MongoClient(os.getenv('MONGODB_URI')) #Copy it from mongo compass application
     app.db = client.Microblog #Name should be same as name of data base in MongoDB
-    @app.route("/", methods=['GET','POST'])
+    @app.route("/home", methods=['GET','POST'])
     def home():
         if request.method=='POST':
             entry_content = request.form.get('content')
@@ -26,21 +26,7 @@ def create_app():
             for entry in app.db.entries.find({})
         ]
         return render_template("home.html",entries=entries_with_date)
-        
-
-    @app.route('/entries')
-    def view_entries():
-        entries_with_date=[
-            (
-                entry['content'],
-                entry['date'],
-                datetime.datetime.strptime(entry['date'],"%Y-%m-%d").strftime("%b %d")
-            )
-            for entry in app.db.entries.find({})
-        ]
-        return render_template('entries.html',entries=entries_with_date)
     
-
     @app.route('/login',methods=['GET','POST'])
     def login():
         if request.method == 'POST':
@@ -55,12 +41,14 @@ def create_app():
                 for user in app.db.users.find({})
             ]
             print(f'user_check >> {user_check}')
+            login_error = ''
             try:
-                if username==user_check[0] and password==user_check[1]:
-                    return home()
+                if username==user_check[0][0] and password==user_check[0][1]:
+                    return redirect('/home')
             except:
-                print('try again')
+                login_error = "invalid details"
+                return redirect('/login')
 
-        return render_template('login.html')
+        return render_template('login.html',login_error=login_error)
 
     return app
