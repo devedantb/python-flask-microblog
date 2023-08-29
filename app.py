@@ -49,14 +49,18 @@ def create_app():
             # app.db.users.insert_one({'user':[{'username':username,'password':password}]})
             user_check=[
                 (
-                    user['user'][0]['username'],
-                    user['user'][0]['password']
+                    user['username'],
+                    user['password']
                 )
                 for user in app.db.user.find({})
             ]
-            print(user_check)
-            if username==user_check[0][0] and password==user_check[0][1]:
-                return home()
+            print(f'user_check >> {user_check}')
+            try:
+                if username==user_check[0] and password==user_check[1]:
+                    return home()
+            except:
+                print('try again')
+
         return render_template('login.html')
 
     return app
