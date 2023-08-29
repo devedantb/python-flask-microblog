@@ -11,14 +11,6 @@ def create_app():
     
     client = MongoClient(os.getenv('MONGODB_URI')) #Copy it from mongo compass application
     app.db = client.Microblog #Name should be same as name of data base in MongoDB
-
-
-    @app.route("/krishna")
-    def grretings(name:str="Krishna"):
-        return f"<h1>Welcome {name}</h1><a href='/' target=""_blank"">Home</a><br><a href='/login' target=""_blank"">login</a>"
-
-
-
     @app.route("/", methods=['GET','POST'])
     def home():
         if request.method=='POST':
