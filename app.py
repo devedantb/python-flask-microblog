@@ -8,10 +8,10 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
-    
     client = MongoClient(os.getenv('MONGODB_URI')) #Copy it from mongo compass application
     app.db = client.Microblog #Name should be same as name of data base in MongoDB
-    @app.route("/home", methods=['GET','POST'])
+    
+    @app.route("/", methods=['GET','POST'])
     def home():
         if request.method=='POST':
             entry_content = request.form.get('content')
@@ -29,6 +29,7 @@ def create_app():
     
     @app.route('/login',methods=['GET','POST'])
     def login():
+        login_error = ''
         if request.method == 'POST':
             username = request.form.get('username')
             password = request.form.get('password')
@@ -41,13 +42,13 @@ def create_app():
                 for user in app.db.users.find({})
             ]
             print(f'user_check >> {user_check}')
-            login_error = ''
+            
             try:
                 if username==user_check[0][0] and password==user_check[0][1]:
-                    return redirect('/home')
+                    return redirect('/')
             except:
                 login_error = "invalid details"
-                return redirect('/login')
+                return render_template('login.html',login_error=login_error)
 
         return render_template('login.html',login_error=login_error)
 
