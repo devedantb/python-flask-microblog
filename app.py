@@ -44,11 +44,11 @@ def create_app():
             print(f'user_check >> {user_check}')
             
             try:
-                if username==user_check[0][0] and password==user_check[0][1]:
-                    return redirect('/')
+                for eachUser in user_check:
+                    if username==eachUser[0] and password==eachUser[1]:
+                        return redirect('/')
             except:
                 login_error = "invalid details"
-                return render_template('login.html',login_error=login_error)
 
         return render_template('login.html',login_error=login_error)
 
