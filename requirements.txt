@@ -3,3 +3,4 @@ python-dotenv
 pymongo[srv]
 python-dotenv
 gunicorn
+werkzeug>=3.0.1 # not directly required, pinned by Snyk to avoid a vulnerability
